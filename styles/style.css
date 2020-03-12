@@ -1,0 +1,43 @@
+
+#redBack {
+    height: 200px;
+    width: 130px;
+}
+
+#redBack2 {
+    height: 200px;
+    width: 130px;
+}
+
+#grayBack {
+    height: 200px;
+    width: 130px;
+}
+
+#grayBack2 {
+    height: 200px;
+    width: 130px;
+}
+
+#firstHit {
+    height: 200px;
+    width: 130px;
+}
+
+#shuffle {
+    position: absolute;
+    top: 40%;
+    left: 25%;
+}
+
+#hit {
+    position: absolute;
+    top: 40%;
+    left: 35%;
+}
+
+#stand {
+    position: absolute;
+    top: 40%;
+    left: 40%;
+}
