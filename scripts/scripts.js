@@ -1,5 +1,105 @@
+/**
+ * Global Variables
+ */
+let suit = ["S", "D", "C", "H"];
+let value = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+let player;
+let house;
 
+/**
+ * Card Constructor
+ */
+function card(value, suit, status){
+    this.value = value;
+    this.suit = suit;
+    this.status = status;
+    if(this.status == "faceUp"){
+        this.imgsrc = this.value + this.suit + ".png";
+        }
+    else{
+        this.imgsrc = "red_back.png";
+    }
+}
+
+/**
+ * Player Object
+ * User and House will be made using this
+ */
+function player(){
+
+}
+
+
+/**
+ * Dynamically generate array of cards
+ */
+function generateDeck(){
+    for(let i=0; i<suit.length; i++){
+        for(let j=0; j<value.length; j++){
+            let crd = new card(value[j], suit[i]);
+        }
+    }
+}
+
+/**
+ * Draw card from deck
+ * Status is either faceUp or faceDown
+ */
+function drawCard(status){
     
+}
+
+
+
+
+/**
+ * Start Game
+ */
+function play(){
+
+    /**
+     * Player places bet
+     */
+    player.bet(n);
+
+    /**
+     * Player draws 2 cards and house draws 2 cards
+     */
+    player.drawCard(faceUp);
+    player.drawCard(faceUp);
+
+    house.drawCard(faceUp);
+    house.drawCard(faceDown);
+
+    /**
+     * Natural conditionals
+     * If player hits 21 off the draw, they win 1.5x their bet
+     * If house hits 21 off the draw, player loses
+     */
+    if(player.value == 21){
+
+    }
+    else if(house.value == 21){
+
+    }
+
+    /**
+     * User either clicks "Hit" or "Stay"
+     * Create Hit and Stay Buttons
+     */
+
+
+
+
+}
+
+
+
+
+
+
+
+    /* 
     let suit = ["spades", "diamonds", "clubs", "hearts"];
     let value = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
     let houseValue = 0;
@@ -772,7 +872,7 @@
     }
 
 
-
+*/
 
 
     
