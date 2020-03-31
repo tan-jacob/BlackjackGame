@@ -201,6 +201,7 @@ function play() {
      */
     if (player.value == 21) {
 
+
     } else if (house.value == 21) {
 
     }
@@ -213,6 +214,4 @@ function play() {
     /**
      * Once user hits stay, house draws till value is > 17
      */
-
-
 }

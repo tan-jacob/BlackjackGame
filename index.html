@@ -1,7 +1,25 @@
 <!DOCTYPE html>
 <html>
+    <style>
+        .hidden {
+            visibility: hidden;
+        }
+    </style>
 <body>
 <link rel="stylesheet" type="text/css" href="styles/style.css">
+
+<div id="userAccount">
+    <h1>Welcome, Click The Log-in button to start the game</h1>
+    <input type="button" id="login" value="Click Me To Log-in Anonymously!"></input>
+    <input type="button" id="logout" class="hidden" value="Enough Fun? Log-out!"></input>
+    <a id="signup" href="login.html">
+    <input type="button" value="signup"></input>
+</a>
+</div>
+
+<br>
+<br>
+<br>
 
 
 <input type="button" id="bet10" value="$10">
@@ -13,6 +31,11 @@
 <h4 id="pool">0</h4>
 
 <script src="scripts/scripts.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.9.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.9.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.9.2/firebase-firestore.js"></script>
+<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+<script src="scripts/firebase_api_BlackjackGame.js"></script>
 
 </body>
 </html>
