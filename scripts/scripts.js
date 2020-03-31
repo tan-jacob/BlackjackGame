@@ -37,6 +37,14 @@ function card(value, suit, status) {
     this.crd.style.position = "absolute";
     this.crd.src = this.imgsrc;
     this.crd.style.margin = "5px";
+
+    this.setStatus = function (status) {
+        if (status == "faceUp") {
+            this.crd.src = "images/" + this.value + this.suit + ".png";
+        } else {
+            this.crd.src = "images/red_back.png";
+        }
+        }
 }
 
 /**
@@ -84,12 +92,7 @@ function shuffleDeck(array) {
 function drawCard() {
     let topCard = deck.pop();
     this.hand.push(topCard);
-    /**
-    this.crd = document.createElement("img");
-    this.crd.style.width = "20vh";
-    this.crd.style.position = "absolute";
-    this.crd.src = topCard.imgsrc;
-    */
+
    this.setStatus = function (status) {
     if (status == "faceUp") {
         topCard.src = "images/" + topCard.value + topCard.suit + ".png";
@@ -151,6 +154,8 @@ player.draw();
 house.draw();
 house.draw();
 
+house.hand[0].setStatus("faceDown");
+
 player.reposition("player");
 house.reposition();
 console.log(house.hand)
@@ -158,16 +163,9 @@ console.log(house.hand)
 scorebox.innerHTML = score;
 poolbox.innerHTML = pool;
 
-/*
-let card1 = document.createElement("img");
-card1.src = playerHand[0].imgsrc;
-card1.style.width = "20vh";
-document.body.appendChild(card1);
-*/
 
 
 
-//card4.src = "images/red_back.png";
 
 
 /**
