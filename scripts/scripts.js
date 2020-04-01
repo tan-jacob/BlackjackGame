@@ -34,9 +34,8 @@ function card(value, suit, status) {
     }
 
     this.crd = document.createElement("img");
-    this.crd.style.width = "20vh";
-    this.crd.style.height = "30vh";
-
+    // this.crd.style.width = "20vh"; (original code, replaced by li 37)
+    this.crd.style.width = "15vmin"
     this.crd.style.position = "absolute";
     this.crd.src = this.imgsrc;
     this.crd.style.margin = "5px";
@@ -58,6 +57,7 @@ function player_obj(hand) {
     this.hand = hand;
     this.draw = drawCard;
     this.reposition = positionPlayer;
+    this.sum = sumOfCards();
 }
 
 
@@ -128,16 +128,30 @@ function positionPlayer(player) {
         } else {
             hand[i].crd.style.top = "10%";
         }
-        hand[i].crd.style.left = 35 + (13 * i) + "vw";
+        hand[i].crd.style.left = 35 + (15 * i) + "vw";
     }
 }
 
 /**
+<<<<<<< HEAD
  * Player Hit
  */
 function hit(){
 
 }
+=======
+ * Sum of cards in hand
+ * **hand is undefined in console.log
+ *  */
+function sumOfCards(){
+    let hand = this.hand;
+    let sum = 0;
+    for(let i=0; i<hand.length; i++){
+        sum = sum + hand[i].value;
+    } return sum
+}
+
+>>>>>>> 15c41881b0f21d7e01a57d88bb782e3643b37d4a
 
 /**
  * Testing
@@ -166,6 +180,8 @@ console.log(house.hand)
 scorebox.innerHTML = score;
 poolbox.innerHTML = pool;
 
+console.log(player.sum);
+console.log(house.sum);
 
 
 
@@ -204,6 +220,7 @@ function play() {
      */
     if (player.value == 21) {
 
+
     } else if (house.value == 21) {
 
     }
@@ -216,6 +233,9 @@ function play() {
     /**
      * Once user hits stay, house draws till value is > 17
      */
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 15c41881b0f21d7e01a57d88bb782e3643b37d4a
 }
