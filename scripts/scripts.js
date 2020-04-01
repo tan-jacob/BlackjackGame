@@ -8,23 +8,23 @@ let houseHand = [];
 let deck = [];
 let pool = 0;
 let score = 100;
-
 let player = new player_obj(playerHand);
 let house = new player_obj(houseHand);
-
 let scorebox = document.getElementById("score");
 let poolbox = document.getElementById("pool");
 let hitButton = document.getElementById("hit");
 let stayButton = document.getElementById("stay");
 let dealButton = document.getElementById("deal");
+let bet10 = document.getElementById("bet10");
+
 /**
  *  Button Functions
  */
-let bet10 = document.getElementById("bet10");
 bet10.onclick = playerBet10;
 hitButton.onclick = hit;
 stayButton.onclick = stay;
 dealButton.onclick = deal;
+
 /**
  * Card Constructor
  */
@@ -127,8 +127,6 @@ function playerBet10() {
  */
 function positionPlayer(player) {
     let hand = this.hand;
-    let width = window.innerWidth;
-    let height = window.innerHeight;
     for (let i = 0; i < hand.length; i++) {
         if (player == "player") {
             hand[i].crd.style.top = "50%";
@@ -142,40 +140,38 @@ function positionPlayer(player) {
 /**
  * Sum of cards in hand
  */
-function sumOfCards(){
+function sumOfCards() {
     let hand = this.hand;
     let sum = 0;
-
-    for(let i=0; i<hand.length; i++){
-        if(hand[i].value == "J" || hand[i].value == "K" || hand[i].value == "Q") {
+    for (let i = 0; i < hand.length; i++) {
+        if (hand[i].value == "J" || hand[i].value == "K" || hand[i].value == "Q") {
             hand[i].value = 10;
         }
-        if(hand[i].value == "A"){
+        if (hand[i].value == "A") {
             hand[i].value = 11;
         }
         sum = sum + parseInt(hand[i].value);
     }
 
     //Set Aces to 1 if sum > 21
-    if(sum > 21){
+    if (sum > 21) {
         sum = 0;
-        for(let j=0; j<hand.length; j++){
-            if(hand[j].value == "A" || hand[j].value == 11){
+        for (let j = 0; j < hand.length; j++) {
+            if (hand[j].value == "A" || hand[j].value == 11) {
                 hand[j].value = 1;
             }
             sum = sum + parseInt(hand[j].value);
         }
     }
-    console.log(sum);
     return sum;
 }
 
 /**
  * Check 21
  */
-function sum21(){
+function sum21() {
     let sum = this.sum();
-    if(sum == 21){
+    if (sum == 21) {
         return true;
     }
     return false;
@@ -184,17 +180,17 @@ function sum21(){
 /**
  * Player Hit
  */
-function hit(){
+function hit() {
     player.draw();
     player.reposition("player");
     let sum = player.sum();
-    if(player.sum21()){
+    if (player.sum21()) {
         score += 1.5 * pool;
         scorebox.innerHTML = score;
         pool = 0;
         poolbox.innerHTML = pool;
         window.alert("You win");
-    } else if(sum > 21){
+    } else if (sum > 21) {
         //endround
         house.hand[0].setStatus("faceUp");
         pool = 0;
@@ -206,32 +202,32 @@ function hit(){
 /**
  * Player Stay
  */
-function stay(){
+function stay() {
     house.hand[0].setStatus("faceUp");
-    while(house.sum() < 18){
+    while (house.sum() < 18) {
         house.draw();
         house.reposition();
     }
-    if(house.sum21()){
+    if (house.sum21()) {
         //endround
         pool = 0;
         poolbox.innerHTML = pool;
         window.alert("House wins");
-    } else if(house.sum() > 21 || player.sum() > house.sum()){
+    } else if (house.sum() > 21 || player.sum() > house.sum()) {
         //player wins
-        score += 2* pool;
+        score += 2 * pool;
         scorebox.innerHTML = score;
         pool = 0;
         poolbox.innerHTML = pool;
         window.alert("You win");
-    } else if(house.sum() == player.sum()){
+    } else if (house.sum() == player.sum()) {
         //draw
         score += pool;
         scorebox.innerHTML = score;
         pool = 0;
         poolbox.innerHTML = pool;
         window.alert("Draw");
-    } else if(player.sum() < house.sum()){
+    } else if (player.sum() < house.sum()) {
         //housewins
         pool = 0;
         poolbox.innerHTML = pool;
@@ -243,19 +239,23 @@ function stay(){
 /**
  * Deal
  */
-function deal(){
+function deal() {
+    //Clear Board
     let cards = document.getElementsByClassName("image");
     console.log(cards);
-    if(cards != null){
+    if (cards != null) {
         let len = cards.length;
-        for(let i = len - 1; i >= 0; i--){
+        for (let i = len - 1; i >= 0; i--) {
             cards[i].parentNode.removeChild(cards[i]);
         }
     }
-
+    
+    //Clear deck and hands
     deck = [];
     player.hand = [];
     house.hand = [];
+
+    //Rebuild deck and draw
     generateDeck();
     shuffleDeck(deck);
     house.reposition();
@@ -268,7 +268,8 @@ function deal(){
     house.reposition();
     player.reposition("player");
 
-    if(player.sum21()){
+    //Draw 21
+    if (player.sum21()) {
         score += 1.5 * pool;
         scorebox.innerHTML = score;
         pool = 0;
@@ -276,90 +277,4 @@ function deal(){
         window.alert("You win");
     }
 
-}
-
-
-
-/**
- * Testing
- */
-/**
-let player = new player_obj(playerHand);
-let house = new player_obj(houseHand);
-*/
-
-/** 
-generateDeck();
-shuffleDeck(deck);
-
-player.draw();
-console.log(playerHand);
-
-player.draw();
-house.draw();
-house.draw();
-
-
-//house.hand[0].setStatus("faceDown");
-
-player.reposition("player");
-house.reposition();
-console.log(house.hand)
-
-scorebox.innerHTML = score;
-poolbox.innerHTML = pool;
-
-console.log(house.sum());
-console.log(house.sum21());
-console.log(player.sum());
-console.log(player.sum21());
-*/
-
-
-/**
- * Start Game
- */
-function play() {
-
-    /**
-     * Player places bet
-     */
-    player.bet(n);
-
-    /**
-     * Generate and shuffle Deck
-     */
-
-    let deck = generateDeck();
-    shuffleDeck(deck);
-
-    /**
-     * Player draws 2 cards and house draws 2 cards
-     */
-    player.drawCard("faceUp");
-    player.drawCard("faceUp");
-
-    house.drawCard("faceUp");
-    house.drawCard("faceDown");
-
-    /**
-     * Natural conditionals
-     * If player hits 21 off the draw, they win 1.5x their bet
-     * If house hits 21 off the draw, player loses
-     */
-    if (player.value == 21) {
-
-
-    } else if (house.value == 21) {
-
-    }
-
-    /**
-     * User either clicks "Hit" or "Stay"
-     * Create Hit and Stay Buttons
-     */
-
-    /**
-     * Once user hits stay, house draws till value is > 17
-     */
 }
