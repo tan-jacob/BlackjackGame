@@ -239,8 +239,8 @@ function stay() {
 /**
  * Deal
  */
-function deal() {
-    //Clear Board
+function deal(){
+    writeScore(scorebox.innerHTML = score);//code in firebase_api_BlackjackGame.js
     let cards = document.getElementsByClassName("image");
     console.log(cards);
     if (cards != null) {

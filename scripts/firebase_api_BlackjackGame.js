@@ -1,3 +1,5 @@
+const HUNDRED = 100;
+
 // <!-- The core Firebase JS SDK is always required and must be listed first -->
 // <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
 
@@ -28,6 +30,14 @@ let logoutButton = document.getElementById("logout");
 // Click event listener for the login button.
 loginButton.addEventListener("click", function (e) {
     firebase.auth().signInAnonymously();
+
+    firebase.auth().onAuthStateChanged(function (user) {
+        db.collection("Player").doc(user.uid).set({
+            name: "Anonymous",
+            score: HUNDRED
+        });
+    });
+
 });
 
 // Click event listener for the logout button.
@@ -45,3 +55,16 @@ firebase.auth().onAuthStateChanged(function (user) {
         logoutButton.classList.add("hidden");
     }
 });
+
+/**
+ * firebase log user score
+ */
+function writeScore(x){
+    document.getElementById("deal").addEventListener("click", function(e){
+        firebase.auth().onAuthStateChanged(function (user) {
+        db.collection("Player").doc(user.uid).update({
+            score: x
+        });
+        });
+    });
+}
