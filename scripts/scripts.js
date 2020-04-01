@@ -11,6 +11,7 @@ let score = 100;
 
 let scorebox = document.getElementById("score");
 let poolbox = document.getElementById("pool");
+let hitButton = document.getElementById("hit");
 
 /**
  *  Button Functions
@@ -34,6 +35,8 @@ function card(value, suit, status) {
 
     this.crd = document.createElement("img");
     this.crd.style.width = "20vh";
+    this.crd.style.height = "30vh";
+
     this.crd.style.position = "absolute";
     this.crd.src = this.imgsrc;
     this.crd.style.margin = "5px";
@@ -44,7 +47,7 @@ function card(value, suit, status) {
         } else {
             this.crd.src = "images/red_back.png";
         }
-        }
+    }
 }
 
 /**
@@ -92,19 +95,14 @@ function shuffleDeck(array) {
 function drawCard() {
     let topCard = deck.pop();
     this.hand.push(topCard);
-
-   this.setStatus = function (status) {
-    if (status == "faceUp") {
-        topCard.src = "images/" + topCard.value + topCard.suit + ".png";
-    } else {
-        topCard.crd.src = "images/red_back.png";
+    this.setStatus = function (status) {
+        if (status == "faceUp") {
+            topCard.src = "images/" + topCard.value + topCard.suit + ".png";
+        } else {
+            topCard.crd.src = "images/red_back.png";
+        }
     }
-    }
-
-    
     document.body.appendChild(topCard.crd);
-
-
 }
 
 /**
@@ -120,21 +118,26 @@ function playerBet10() {
 /**
  * Position Cards
  */
-function positionPlayer(player){
+function positionPlayer(player) {
     let hand = this.hand;
     let width = window.innerWidth;
     let height = window.innerHeight;
-    for(let i=0; i<hand.length; i++){
-        if(player == "player"){
+    for (let i = 0; i < hand.length; i++) {
+        if (player == "player") {
             hand[i].crd.style.top = "50%";
-        }
-        else{
+        } else {
             hand[i].crd.style.top = "10%";
         }
         hand[i].crd.style.left = 35 + (13 * i) + "vw";
     }
 }
 
+/**
+ * Player Hit
+ */
+function hit(){
+
+}
 
 /**
  * Testing
