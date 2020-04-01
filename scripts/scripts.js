@@ -9,16 +9,22 @@ let deck = [];
 let pool = 0;
 let score = 100;
 
+let player = new player_obj(playerHand);
+let house = new player_obj(houseHand);
+
 let scorebox = document.getElementById("score");
 let poolbox = document.getElementById("pool");
 let hitButton = document.getElementById("hit");
-
+let stayButton = document.getElementById("stay");
+let dealButton = document.getElementById("deal");
 /**
  *  Button Functions
  */
 let bet10 = document.getElementById("bet10");
 bet10.onclick = playerBet10;
 hitButton.onclick = hit;
+stayButton.onclick = stay;
+dealButton.onclick = deal;
 /**
  * Card Constructor
  */
@@ -34,7 +40,7 @@ function card(value, suit, status) {
     }
 
     this.crd = document.createElement("img");
-    // this.crd.style.width = "20vh"; (original code, replaced by li 37)
+    this.crd.setAttribute("class", "image");
     this.crd.style.width = "15vmin"
     this.crd.style.position = "absolute";
     this.crd.src = this.imgsrc;
@@ -59,6 +65,7 @@ function player_obj(hand) {
     this.reposition = positionPlayer;
     this.sum = sumOfCards;
     this.sum21 = sum21;
+    this.hit = hit;
 }
 
 
@@ -80,7 +87,6 @@ function generateDeck() {
 function shuffleDeck(array) {
     for (let i = 0; i < array.length - 1; i++) {
         let j = Math.floor(Math.random() * (52));
-        console.log(j);
         let temp = array[i];
         array[i] = array[j];
         array[j] = temp;
@@ -129,14 +135,13 @@ function positionPlayer(player) {
         } else {
             hand[i].crd.style.top = "10%";
         }
-        hand[i].crd.style.left = 35 + (15 * i) + "vw";
+        hand[i].crd.style.left = 20 + (15 * i) + "vw";
     }
 }
 
 /**
  * Sum of cards in hand
- * **hand is undefined in console.log
- *  */
+ */
 function sumOfCards(){
     let hand = this.hand;
     let sum = 0;
@@ -161,7 +166,8 @@ function sumOfCards(){
             sum = sum + parseInt(hand[j].value);
         }
     }
-    return sum
+    console.log(sum);
+    return sum;
 }
 
 /**
@@ -179,7 +185,97 @@ function sum21(){
  * Player Hit
  */
 function hit(){
-    
+    player.draw();
+    player.reposition("player");
+    let sum = player.sum();
+    if(player.sum21()){
+        score += 1.5 * pool;
+        scorebox.innerHTML = score;
+        pool = 0;
+        poolbox.innerHTML = pool;
+        window.alert("You win");
+    } else if(sum > 21){
+        //endround
+        house.hand[0].setStatus("faceUp");
+        pool = 0;
+        poolbox.innerHTML = pool;
+        window.alert("Bust");
+    }
+}
+
+/**
+ * Player Stay
+ */
+function stay(){
+    house.hand[0].setStatus("faceUp");
+    while(house.sum() < 18){
+        house.draw();
+        house.reposition();
+    }
+    if(house.sum21()){
+        //endround
+        pool = 0;
+        poolbox.innerHTML = pool;
+        window.alert("House wins");
+    } else if(house.sum() > 21 || player.sum() > house.sum()){
+        //player wins
+        score += 2* pool;
+        scorebox.innerHTML = score;
+        pool = 0;
+        poolbox.innerHTML = pool;
+        window.alert("You win");
+    } else if(house.sum() == player.sum()){
+        //draw
+        score += pool;
+        scorebox.innerHTML = score;
+        pool = 0;
+        poolbox.innerHTML = pool;
+        window.alert("Draw");
+    } else if(player.sum() < house.sum()){
+        //housewins
+        pool = 0;
+        poolbox.innerHTML = pool;
+        window.alert("House wins");
+    }
+}
+
+
+/**
+ * Deal
+ */
+function deal(){
+    let cards = document.getElementsByClassName("image");
+    console.log(cards);
+    if(cards != null){
+        let len = cards.length;
+        for(let i = len - 1; i >= 0; i--){
+            cards[i].parentNode.removeChild(cards[i]);
+        }
+    }
+
+    deck = [];
+    player.hand = [];
+    house.hand = [];
+    generateDeck();
+    shuffleDeck(deck);
+    house.reposition();
+    player.reposition("player");
+    player.draw();
+    player.draw();
+    house.draw();
+    house.draw();
+    house.hand[0].setStatus("faceDown");
+    house.reposition();
+    player.reposition("player");
+
+    if(player.sum21()){
+        score += 1.5 * pool;
+        scorebox.innerHTML = score;
+        pool = 0;
+        poolbox.innerHTML = pool;
+        window.alert("You win");
+    }
+
 }
 
 
@@ -187,11 +283,12 @@ function hit(){
 /**
  * Testing
  */
-
+/**
 let player = new player_obj(playerHand);
 let house = new player_obj(houseHand);
+*/
 
-
+/** 
 generateDeck();
 shuffleDeck(deck);
 
@@ -201,6 +298,7 @@ console.log(playerHand);
 player.draw();
 house.draw();
 house.draw();
+
 
 //house.hand[0].setStatus("faceDown");
 
@@ -215,7 +313,7 @@ console.log(house.sum());
 console.log(house.sum21());
 console.log(player.sum());
 console.log(player.sum21());
-
+*/
 
 
 /**
