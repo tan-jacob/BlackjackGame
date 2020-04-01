@@ -160,7 +160,7 @@ function sumOfCards(){
     if(sum > 21){
         sum = 0;
         for(let j=0; j<hand.length; j++){
-            if(hand[j].value == "A"){
+            if(hand[j].value == "A" || hand[j].value == 11){
                 hand[j].value = 1;
             }
             sum = sum + parseInt(hand[j].value);
