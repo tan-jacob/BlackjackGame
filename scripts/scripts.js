@@ -18,7 +18,7 @@ let hitButton = document.getElementById("hit");
  */
 let bet10 = document.getElementById("bet10");
 bet10.onclick = playerBet10;
-
+hitButton.onclick = hit;
 /**
  * Card Constructor
  */
@@ -57,7 +57,8 @@ function player_obj(hand) {
     this.hand = hand;
     this.draw = drawCard;
     this.reposition = positionPlayer;
-    this.sum = sumOfCards();
+    this.sum = sumOfCards;
+    this.sum21 = sum21;
 }
 
 
@@ -133,25 +134,55 @@ function positionPlayer(player) {
 }
 
 /**
-<<<<<<< HEAD
- * Player Hit
- */
-function hit(){
-
-}
-=======
  * Sum of cards in hand
  * **hand is undefined in console.log
  *  */
 function sumOfCards(){
     let hand = this.hand;
     let sum = 0;
+
     for(let i=0; i<hand.length; i++){
-        sum = sum + hand[i].value;
-    } return sum
+        if(hand[i].value == "J" || hand[i].value == "K" || hand[i].value == "Q") {
+            hand[i].value = 10;
+        }
+        if(hand[i].value == "A"){
+            hand[i].value = 11;
+        }
+        sum = sum + parseInt(hand[i].value);
+    }
+
+    //Set Aces to 1 if sum > 21
+    if(sum > 21){
+        sum = 0;
+        for(let j=0; j<hand.length; j++){
+            if(hand[j].value == "A"){
+                hand[j].value = 1;
+            }
+            sum = sum + parseInt(hand[j].value);
+        }
+    }
+    return sum
 }
 
->>>>>>> 15c41881b0f21d7e01a57d88bb782e3643b37d4a
+/**
+ * Check 21
+ */
+function sum21(){
+    let sum = this.sum();
+    if(sum == 21){
+        return true;
+    }
+    return false;
+}
+
+/**
+ * Player Hit
+ */
+function hit(){
+    
+}
+
+
 
 /**
  * Testing
@@ -171,7 +202,7 @@ player.draw();
 house.draw();
 house.draw();
 
-house.hand[0].setStatus("faceDown");
+//house.hand[0].setStatus("faceDown");
 
 player.reposition("player");
 house.reposition();
@@ -180,10 +211,10 @@ console.log(house.hand)
 scorebox.innerHTML = score;
 poolbox.innerHTML = pool;
 
-console.log(player.sum);
-console.log(house.sum);
-
-
+console.log(house.sum());
+console.log(house.sum21());
+console.log(player.sum());
+console.log(player.sum21());
 
 
 
@@ -233,9 +264,4 @@ function play() {
     /**
      * Once user hits stay, house draws till value is > 17
      */
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 15c41881b0f21d7e01a57d88bb782e3643b37d4a
 }
