@@ -26,6 +26,28 @@ stayButton.onclick = stay;
 dealButton.onclick = deal;
 
 /**
+ * Toggle buttons after game ends.
+ * hide hit & stay, show bet10 & deal
+ */
+function toggleEnd() {
+    hitButton.classList.add("hidden");
+    stayButton.classList.add("hidden");
+    dealButton.classList.remove("hidden");
+    bet10.classList.remove("hidden");
+}
+
+/**
+ * Toggle buttons at game start.
+ * hide bet10 & deal, show hit & stay
+ */
+function toggleStart() {
+    hitButton.classList.remove("hidden");
+    stayButton.classList.remove("hidden");
+    dealButton.classList.add("hidden");
+    bet10.classList.add("hidden");
+}
+
+/**
  * Card Constructor
  */
 function card(value, suit, status) {
@@ -177,6 +199,8 @@ function sum21() {
     return false;
 }
 
+
+
 /**
  * Player Hit
  */
@@ -190,12 +214,14 @@ function hit() {
         pool = 0;
         poolbox.innerHTML = pool;
         window.alert("You win");
+        toggleEnd();
     } else if (sum > 21) {
         //endround
         house.hand[0].setStatus("faceUp");
         pool = 0;
         poolbox.innerHTML = pool;
         window.alert("Bust");
+        toggleEnd();
     }
 }
 
@@ -208,11 +234,13 @@ function stay() {
         house.draw();
         house.reposition();
     }
+
     if (house.sum21()) {
         //endround
         pool = 0;
         poolbox.innerHTML = pool;
-        window.alert("House wins");
+        window.alert("House wins");        
+        toggleEnd();
     } else if (house.sum() > 21 || player.sum() > house.sum()) {
         //player wins
         score += 2 * pool;
@@ -220,6 +248,7 @@ function stay() {
         pool = 0;
         poolbox.innerHTML = pool;
         window.alert("You win");
+        toggleEnd();
     } else if (house.sum() == player.sum()) {
         //draw
         score += pool;
@@ -227,11 +256,14 @@ function stay() {
         pool = 0;
         poolbox.innerHTML = pool;
         window.alert("Draw");
+        toggleEnd();
     } else if (player.sum() < house.sum()) {
         //housewins
         pool = 0;
         poolbox.innerHTML = pool;
         window.alert("House wins");
+        toggleEnd();
+        
     }
 }
 
@@ -267,6 +299,8 @@ function deal(){
     house.hand[0].setStatus("faceDown");
     house.reposition();
     player.reposition("player");
+
+    toggleStart();
 
     //Draw 21
     if (player.sum21()) {
