@@ -158,6 +158,10 @@ function playerBet10() {
 function bankrupt() {
     window.alert("Bankrupt! You lose.");
     toggleEnd();
+    score = 100;
+    scorebox.innerHTML = score;
+    poolbox.innerHTML = pool;
+
 }
 
 /**
@@ -239,6 +243,11 @@ function hit() {
         window.alert("Bust");
         toggleEnd();
     }
+
+    if (score <= 0){
+
+        bankrupt();
+    } 
 }
 
 /**
@@ -278,8 +287,11 @@ function stay() {
         poolbox.innerHTML = pool;
         window.alert("House wins");
         toggleEnd();
-        
     }
+
+    if (score <= 0){
+        bankrupt();
+    } 
 }
 
 
