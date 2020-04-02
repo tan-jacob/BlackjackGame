@@ -159,6 +159,7 @@ function bankrupt() {
     window.alert("Bankrupt! You lose.");
     toggleEnd();
     score = 100;
+    pool = 0;
     scorebox.innerHTML = score;
     poolbox.innerHTML = pool;
 
