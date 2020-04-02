@@ -20,10 +20,12 @@ let bet10 = document.getElementById("bet10");
 /**
  *  Button Functions
  */
+dealButton.disabled = true;
 bet10.onclick = playerBet10;
 hitButton.onclick = hit;
 stayButton.onclick = stay;
 dealButton.onclick = deal;
+
 
 /**
  * Toggle buttons after game ends.
@@ -45,6 +47,7 @@ function toggleStart() {
     stayButton.classList.remove("hidden");
     dealButton.classList.add("hidden");
     bet10.classList.add("hidden");
+    dealButton.disabled = true;
 }
 
 /**
@@ -116,7 +119,6 @@ function shuffleDeck(array) {
 }
 
 
-
 /**
  * Draw card from deck
  * Status is either faceUp or faceDown
@@ -142,6 +144,20 @@ function playerBet10() {
     pool += 10;
     scorebox.innerHTML = score;
     poolbox.innerHTML = pool;
+    if (score <= 0) {
+        bet10.classList.add("hidden")
+    } else {
+        bet10.classList.remove("hidden")
+    }
+    bet10.addEventListener("click", dealButton.disabled = false);
+}
+
+/**
+ * out of betting money
+ */
+function bankrupt() {
+    window.alert("Bankrupt! You lose.");
+    toggleEnd();
 }
 
 /**
@@ -234,7 +250,6 @@ function stay() {
         house.draw();
         house.reposition();
     }
-
     if (house.sum21()) {
         //endround
         pool = 0;
@@ -272,6 +287,7 @@ function stay() {
  * Deal
  */
 function deal(){
+
     writeScore(scorebox.innerHTML = score);//code in firebase_api_BlackjackGame.js
     let cards = document.getElementsByClassName("image");
     console.log(cards);
@@ -302,6 +318,7 @@ function deal(){
 
     toggleStart();
 
+
     //Draw 21
     if (player.sum21()) {
         score += 1.5 * pool;
@@ -312,3 +329,4 @@ function deal(){
     }
 
 }
+
