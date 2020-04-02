@@ -145,6 +145,32 @@ function drawCard() {
     document.body.appendChild(topCard.crd);
 }
 
+/** 
+ * check player score to determine how much they can bet
+ */
+function checkScore() {
+    if (score < 10) {
+        bet10.classList.add("hidden")
+        bet25.classList.add("hidden")
+        bet50.classList.add("hidden")
+    } else {
+        bet10.classList.remove("hidden")
+    }
+
+    if (score < 25) {
+        bet25.classList.add("hidden")
+        bet50.classList.add("hidden")
+    } else {
+        bet25.classList.remove("hidden")
+    }
+
+    if (score < 50) {
+        bet50.classList.add("hidden")
+    } else {
+        bet50.classList.remove("hidden")
+    }
+}
+
 /**
  * Player bets 10
  */
@@ -153,11 +179,12 @@ function playerBet10() {
     pool += 10;
     scorebox.innerHTML = "SCORE: " +  score;
     poolbox.innerHTML = "POOL: " + pool;
-    if (score <= 0) {
-        bet10.classList.add("hidden")
-    } else {
-        bet10.classList.remove("hidden")
-    }
+    checkScore();
+    // if (score <= 0) {
+    //     bet10.classList.add("hidden")
+    // } else {
+    //     bet10.classList.remove("hidden")
+    // }
     bet10.addEventListener("click", dealButton.disabled = false);
 }
 
@@ -169,11 +196,14 @@ function playerBet25() {
     pool += 25;
     scorebox.innerHTML = "SCORE: " +  score;
     poolbox.innerHTML = "POOL: " + pool;
-    if (score <= 0) {
-        bet25.classList.add("hidden")
-    } else {
-        bet25.classList.remove("hidden")
-    }
+    checkScore();
+
+    // if (score < 25) {
+    //     bet25.classList.add("hidden")
+    //     bet50.classList.add("hidden")
+    // } else {
+    //     bet25.classList.remove("hidden")
+    // }
     bet25.addEventListener("click", dealButton.disabled = false);
 }
 
@@ -185,11 +215,13 @@ function playerBet50() {
     pool += 50;
     scorebox.innerHTML = "SCORE: " +  score;
     poolbox.innerHTML = "POOL: " + pool;
-    if (score <= 0) {
-        bet50.classList.add("hidden")
-    } else {
-        bet50.classList.remove("hidden")
-    }
+    checkScore();
+
+    // if (score < 50) {
+    //     bet50.classList.add("hidden")
+    // } else {
+    //     bet50.classList.remove("hidden")
+    // }
     bet50.addEventListener("click", dealButton.disabled = false);
 }
 
@@ -285,9 +317,8 @@ function hit() {
         window.alert("Bust");
         toggleEnd();
     }
-
-    if (score <= 0){
-
+    checkScore();
+    if (score < 10){
         bankrupt();
     } 
 }
@@ -330,7 +361,7 @@ function stay() {
         window.alert("House wins");
         toggleEnd();
     }
-
+    checkScore();
     if (score <= 0){
         bankrupt();
     } 
