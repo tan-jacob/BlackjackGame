@@ -26,38 +26,11 @@ dealButton.disabled = true;
 bet10.onclick = playerBet10;
 bet25.onclick = playerBet25;
 bet50.onclick = playerBet50;
-
 hitButton.onclick = hit;
 stayButton.onclick = stay;
 dealButton.onclick = deal;
 
-
-/**
- * Toggle buttons after game ends.
- * hide hit & stay, show bet10 & deal
- */
-function toggleEnd() {
-    hitButton.classList.add("hidden");
-    stayButton.classList.add("hidden");
-    dealButton.classList.remove("hidden");
-    bet10.classList.remove("hidden");
-    bet25.classList.remove("hidden");
-    bet50.classList.remove("hidden");
-}
-
-/**
- * Toggle buttons at game start.
- * hide bet10 & deal, show hit & stay
- */
-function toggleStart() {
-    hitButton.classList.remove("hidden");
-    stayButton.classList.remove("hidden");
-    dealButton.classList.add("hidden");
-    bet10.classList.add("hidden");
-    bet25.classList.add("hidden");
-    bet50.classList.add("hidden");
-    dealButton.disabled = true;
-}
+////////////////////// Constructors //////////////////////
 
 /**
  * Card Constructor
@@ -99,34 +72,9 @@ function player_obj(hand) {
     this.reposition = positionPlayer;
     this.sum = sumOfCards;
     this.sum21 = sum21;
-    this.hit = hit;
 }
 
-
-/**
- * Dynamically generate array of cards
- */
-function generateDeck() {
-    for (let i = 0; i < suit.length; i++) {
-        for (let j = 0; j < value.length; j++) {
-            let crd = new card(value[j], suit[i], "faceUp");
-            deck.push(crd);
-        }
-    }
-}
-
-/**
- * Shuffle Deck
- */
-function shuffleDeck(array) {
-    for (let i = 0; i < array.length - 1; i++) {
-        let j = Math.floor(Math.random() * (52));
-        let temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-}
-
+////////////////////// Player Functions //////////////////////
 
 /**
  * Draw card from deck
@@ -135,6 +83,7 @@ function shuffleDeck(array) {
 function drawCard() {
     let topCard = deck.pop();
     this.hand.push(topCard);
+    //No parameter for setStatus sets to facedown
     this.setStatus = function (status) {
         if (status == "faceUp") {
             topCard.src = "images/" + topCard.value + topCard.suit + ".png";
@@ -143,99 +92,6 @@ function drawCard() {
         }
     }
     document.body.appendChild(topCard.crd);
-}
-
-/** 
- * check player score to determine how much they can bet
- */
-function checkScore() {
-    if (score < 10) {
-        bet10.classList.add("hidden")
-        bet25.classList.add("hidden")
-        bet50.classList.add("hidden")
-    } else {
-        bet10.classList.remove("hidden")
-    }
-
-    if (score < 25) {
-        bet25.classList.add("hidden")
-        bet50.classList.add("hidden")
-    } else {
-        bet25.classList.remove("hidden")
-    }
-
-    if (score < 50) {
-        bet50.classList.add("hidden")
-    } else {
-        bet50.classList.remove("hidden")
-    }
-}
-
-/**
- * Player bets 10
- */
-function playerBet10() {
-    score -= 10;
-    pool += 10;
-    scorebox.innerHTML = "SCORE: " +  score;
-    poolbox.innerHTML = "POOL: " + pool;
-    checkScore();
-    // if (score <= 0) {
-    //     bet10.classList.add("hidden")
-    // } else {
-    //     bet10.classList.remove("hidden")
-    // }
-    bet10.addEventListener("click", dealButton.disabled = false);
-}
-
-/**
- * Player bets 25
- */
-function playerBet25() {
-    score -= 25;
-    pool += 25;
-    scorebox.innerHTML = "SCORE: " +  score;
-    poolbox.innerHTML = "POOL: " + pool;
-    checkScore();
-
-    // if (score < 25) {
-    //     bet25.classList.add("hidden")
-    //     bet50.classList.add("hidden")
-    // } else {
-    //     bet25.classList.remove("hidden")
-    // }
-    bet25.addEventListener("click", dealButton.disabled = false);
-}
-
-/**
- * Player bets 50
- */
-function playerBet50() {
-    score -= 50;
-    pool += 50;
-    scorebox.innerHTML = "SCORE: " +  score;
-    poolbox.innerHTML = "POOL: " + pool;
-    checkScore();
-
-    // if (score < 50) {
-    //     bet50.classList.add("hidden")
-    // } else {
-    //     bet50.classList.remove("hidden")
-    // }
-    bet50.addEventListener("click", dealButton.disabled = false);
-}
-
-/**
- * out of betting money
- */
-function bankrupt() {
-    window.alert("Bankrupt! You lose.");
-    toggleEnd();
-    score = 100;
-    pool = 0;
-    scorebox.innerHTML = score;
-    poolbox.innerHTML = pool;
-
 }
 
 /**
@@ -293,7 +149,151 @@ function sum21() {
     return false;
 }
 
+////////////////////// Game Functions //////////////////////
 
+/**
+ * Dynamically generate array of cards
+ */
+function generateDeck() {
+    for (let i = 0; i < suit.length; i++) {
+        for (let j = 0; j < value.length; j++) {
+            let crd = new card(value[j], suit[i], "faceUp");
+            deck.push(crd);
+        }
+    }
+}
+
+/**
+ * Shuffle Deck
+ */
+function shuffleDeck(array) {
+    for (let i = 0; i < array.length - 1; i++) {
+        let j = Math.floor(Math.random() * (52));
+        let temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
+
+/**
+ * out of betting money
+ */
+function bankrupt() {
+    window.alert("Bankrupt! You lose.");
+    toggleEnd();
+    score = 100;
+    scorebox.innerHTML = score;
+    poolbox.innerHTML = pool;
+
+}
+
+/**
+ * Toggle buttons after game ends.
+ * hide hit & stay, show bet10 & deal
+ */
+function toggleEnd() {
+    hitButton.classList.add("hidden");
+    stayButton.classList.add("hidden");
+    dealButton.classList.remove("hidden");
+    bet10.classList.remove("hidden");
+    bet25.classList.remove("hidden");
+    bet50.classList.remove("hidden");
+}
+
+/**
+ * Toggle buttons at game start.
+ * hide bet10 & deal, show hit & stay
+ */
+function toggleStart() {
+    hitButton.classList.remove("hidden");
+    stayButton.classList.remove("hidden");
+    dealButton.classList.add("hidden");
+    bet10.classList.add("hidden");
+    bet25.classList.add("hidden");
+    bet50.classList.add("hidden");
+    dealButton.disabled = true;
+}
+
+/** 
+ * check player score to determine how much they can bet
+ */
+function checkScore() {
+    if (score < 10) {
+        bet10.classList.add("hidden")
+        bet25.classList.add("hidden")
+        bet50.classList.add("hidden")
+    } else {
+        bet10.classList.remove("hidden")
+    }
+
+    if (score < 25) {
+        bet25.classList.add("hidden")
+        bet50.classList.add("hidden")
+    } else {
+        bet25.classList.remove("hidden")
+    }
+
+    if (score < 50) {
+        bet50.classList.add("hidden")
+    } else {
+        bet50.classList.remove("hidden")
+    }
+}
+////////////////////// Buttons Functions //////////////////////
+
+/**
+ * Player bets 10
+ */
+function playerBet10() {
+    score -= 10;
+    pool += 10;
+    scorebox.innerHTML = "SCORE: " +  score;
+    poolbox.innerHTML = "POOL: " + pool;
+    checkScore();
+    // if (score <= 0) {
+    //     bet10.classList.add("hidden")
+    // } else {
+    //     bet10.classList.remove("hidden")
+    // }
+    bet10.addEventListener("click", dealButton.disabled = false);
+}
+
+/**
+ * Player bets 25
+ */
+function playerBet25() {
+    score -= 25;
+    pool += 25;
+    scorebox.innerHTML = "SCORE: " +  score;
+    poolbox.innerHTML = "POOL: " + pool;
+    checkScore();
+
+    // if (score < 25) {
+    //     bet25.classList.add("hidden")
+    //     bet50.classList.add("hidden")
+    // } else {
+    //     bet25.classList.remove("hidden")
+    // }
+    bet25.addEventListener("click", dealButton.disabled = false);
+}
+
+/**
+ * Player bets 50
+ */
+function playerBet50() {
+    score -= 50;
+    pool += 50;
+    scorebox.innerHTML = "SCORE: " +  score;
+    poolbox.innerHTML = "POOL: " + pool;
+    checkScore();
+
+    // if (score < 50) {
+    //     bet50.classList.add("hidden")
+    // } else {
+    //     bet50.classList.remove("hidden")
+    // }
+    bet50.addEventListener("click", dealButton.disabled = false);
+}
 
 /**
  * Player Hit
@@ -307,14 +307,14 @@ function hit() {
         scorebox.innerHTML = "SCORE: " + score;
         pool = 0;
         poolbox.innerHTML = "POOL: " + pool;
-        window.alert("You win");
+        window.alert("21! You win");
         toggleEnd();
     } else if (sum > 21) {
         //endround
         house.hand[0].setStatus("faceUp");
         pool = 0;
         poolbox.innerHTML = "POOL: " + pool;
-        window.alert("Bust");
+        window.alert("Bust! You lose");
         toggleEnd();
     }
     checkScore();
@@ -367,7 +367,6 @@ function stay() {
     } 
 }
 
-
 /**
  * Deal
  */
@@ -400,9 +399,7 @@ function deal(){
     house.hand[0].setStatus("faceDown");
     house.reposition();
     player.reposition("player");
-
     toggleStart();
-
 
     //Draw 21
     if (player.sum21()) {
@@ -410,7 +407,7 @@ function deal(){
         scorebox.innerHTML = "SCORE: " + score;
         pool = 0;
         poolbox.innerHTML = "POOL: " + pool;
-        window.alert("You win");
+        window.alert("21! You win");
     }
 
 }
