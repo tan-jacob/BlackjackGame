@@ -26,6 +26,8 @@ const db = firebase.firestore();
 */
 let loginButton = document.getElementById("login");
 let logoutButton = document.getElementById("logout");
+let changeNameButton = document.getElementById("changeNameButton");
+
 
 // Click event listener for the login button.
 loginButton.addEventListener("click", function (e) {
@@ -55,6 +57,19 @@ firebase.auth().onAuthStateChanged(function (user) {
         logoutButton.classList.add("hidden");
     }
 });
+
+changeNameButton.addEventListener("click", function (e) {
+    let userName = document.getElementById("changeName");
+    firebase.auth().onAuthStateChanged(function (user) {
+        db.collection("Player").doc(userid).update({
+            name: userName.value,
+        });
+    });
+});
+
+
+//
+
 
 /**
  * firebase log user score
