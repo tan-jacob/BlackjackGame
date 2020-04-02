@@ -16,12 +16,17 @@ let hitButton = document.getElementById("hit");
 let stayButton = document.getElementById("stay");
 let dealButton = document.getElementById("deal");
 let bet10 = document.getElementById("bet10");
+let bet25 = document.getElementById("bet25");
+let bet50 = document.getElementById("bet50");
 
 /**
  *  Button Functions
  */
 dealButton.disabled = true;
 bet10.onclick = playerBet10;
+bet25.onclick = playerBet25;
+bet50.onclick = playerBet50;
+
 hitButton.onclick = hit;
 stayButton.onclick = stay;
 dealButton.onclick = deal;
@@ -36,6 +41,8 @@ function toggleEnd() {
     stayButton.classList.add("hidden");
     dealButton.classList.remove("hidden");
     bet10.classList.remove("hidden");
+    bet25.classList.remove("hidden");
+    bet50.classList.remove("hidden");
 }
 
 /**
@@ -47,6 +54,8 @@ function toggleStart() {
     stayButton.classList.remove("hidden");
     dealButton.classList.add("hidden");
     bet10.classList.add("hidden");
+    bet25.classList.add("hidden");
+    bet50.classList.add("hidden");
     dealButton.disabled = true;
 }
 
@@ -142,14 +151,46 @@ function drawCard() {
 function playerBet10() {
     score -= 10;
     pool += 10;
-    scorebox.innerHTML = score;
-    poolbox.innerHTML = pool;
+    scorebox.innerHTML = "SCORE: " +  score;
+    poolbox.innerHTML = "POOL: " + pool;
     if (score <= 0) {
         bet10.classList.add("hidden")
     } else {
         bet10.classList.remove("hidden")
     }
     bet10.addEventListener("click", dealButton.disabled = false);
+}
+
+/**
+ * Player bets 25
+ */
+function playerBet25() {
+    score -= 25;
+    pool += 25;
+    scorebox.innerHTML = "SCORE: " +  score;
+    poolbox.innerHTML = "POOL: " + pool;
+    if (score <= 0) {
+        bet25.classList.add("hidden")
+    } else {
+        bet25.classList.remove("hidden")
+    }
+    bet25.addEventListener("click", dealButton.disabled = false);
+}
+
+/**
+ * Player bets 50
+ */
+function playerBet50() {
+    score -= 50;
+    pool += 50;
+    scorebox.innerHTML = "SCORE: " +  score;
+    poolbox.innerHTML = "POOL: " + pool;
+    if (score <= 0) {
+        bet50.classList.add("hidden")
+    } else {
+        bet50.classList.remove("hidden")
+    }
+    bet50.addEventListener("click", dealButton.disabled = false);
 }
 
 /**
@@ -230,16 +271,16 @@ function hit() {
     let sum = player.sum();
     if (player.sum21()) {
         score += 1.5 * pool;
-        scorebox.innerHTML = score;
+        scorebox.innerHTML = "SCORE: " + score;
         pool = 0;
-        poolbox.innerHTML = pool;
+        poolbox.innerHTML = "POOL: " + pool;
         window.alert("You win");
         toggleEnd();
     } else if (sum > 21) {
         //endround
         house.hand[0].setStatus("faceUp");
         pool = 0;
-        poolbox.innerHTML = pool;
+        poolbox.innerHTML = "POOL: " + pool;
         window.alert("Bust");
         toggleEnd();
     }
@@ -262,29 +303,29 @@ function stay() {
     if (house.sum21()) {
         //endround
         pool = 0;
-        poolbox.innerHTML = pool;
+        poolbox.innerHTML = "POOL: " + pool;
         window.alert("House wins");        
         toggleEnd();
     } else if (house.sum() > 21 || player.sum() > house.sum()) {
         //player wins
         score += 2 * pool;
-        scorebox.innerHTML = score;
+        scorebox.innerHTML = "SCORE: " + score;
         pool = 0;
-        poolbox.innerHTML = pool;
+        poolbox.innerHTML = "POOL: " + pool;
         window.alert("You win");
         toggleEnd();
     } else if (house.sum() == player.sum()) {
         //draw
         score += pool;
-        scorebox.innerHTML = score;
+        scorebox.innerHTML = "SCORE: " + score;
         pool = 0;
-        poolbox.innerHTML = pool;
+        poolbox.innerHTML = "POOL: " + pool;
         window.alert("Draw");
         toggleEnd();
     } else if (player.sum() < house.sum()) {
         //housewins
         pool = 0;
-        poolbox.innerHTML = pool;
+        poolbox.innerHTML = "POOL: " + pool;
         window.alert("House wins");
         toggleEnd();
     }
@@ -300,7 +341,7 @@ function stay() {
  */
 function deal(){
 
-    writeScore(scorebox.innerHTML = score);//code in firebase_api_BlackjackGame.js
+    writeScore(parseInt(scorebox.innerHTML));//code in firebase_api_BlackjackGame.js
     let cards = document.getElementsByClassName("image");
     console.log(cards);
     if (cards != null) {
@@ -334,9 +375,9 @@ function deal(){
     //Draw 21
     if (player.sum21()) {
         score += 1.5 * pool;
-        scorebox.innerHTML = score;
+        scorebox.innerHTML = "SCORE: " + score;
         pool = 0;
-        poolbox.innerHTML = pool;
+        poolbox.innerHTML = "POOL: " + pool;
         window.alert("You win");
     }
 

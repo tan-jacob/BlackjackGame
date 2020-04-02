@@ -1,37 +1,76 @@
 
-#redBack {
-    height: 200px;
-    width: 130px;
+p {
+    font-family: Arial;
+    font-size: small;
 }
 
-#redBack2 {
-    height: 200px;
-    width: 130px;
+#title {
+    font-family: Arial;
+    font-size: large;
 }
 
-#grayBack {
-    height: 200px;
-    width: 130px;
-}
+#stay {
+    background-color: black; 
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+  }
 
-#grayBack2 {
-    height: 200px;
-    width: 130px;
-}
+  #hit {
+    background-color:black; 
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+  }
 
-#firstHit {
-    height: 200px;
-    width: 130px;
-}
+  #deal {
+    background-color:black; 
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+  }
 
-#shuffle {
-    position: absolute;
-    top: 40%;
-    left: 25%;
-}
+  #bet10 {
+    background-color: #4CAF50; 
+    border: none;
+    color: white;
+    padding: 5px 13px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+  }
 
-#stand {
-    position: absolute;
-    top: 40%;
-    left: 40%;
-}
+  #bet25 {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 5px 7px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+  }
+
+  #bet50 {
+    background-color: #4CAF50; 
+    border: none;
+    color: white;
+    padding: 5px 13px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+  }
