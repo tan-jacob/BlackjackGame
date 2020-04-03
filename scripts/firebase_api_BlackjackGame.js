@@ -20,9 +20,13 @@ let firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 735d537edd07f1e613417f30c631b94172e30c9b
 /**
-* Firebase
-*/
+ * Firebase
+ */
 
 // Click event listener for the login button.
 loginButton.addEventListener("click", function (e) {
@@ -87,5 +91,9 @@ function writeScore(x) {
     });
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 735d537edd07f1e613417f30c631b94172e30c9b
 changeName();
 showName();
