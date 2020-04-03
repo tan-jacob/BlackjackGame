@@ -1,5 +1,7 @@
 const HUNDRED = 100;
-
+const db = firebase.firestore();
+let loginButton = document.getElementById("login");
+let logoutButton = document.getElementById("logout");
 // <!-- The core Firebase JS SDK is always required and must be listed first -->
 // <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
 
@@ -18,16 +20,10 @@ let firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-//   firebase.analytics();
-const db = firebase.firestore();
 
 /**
 * Firebase
 */
-let loginButton = document.getElementById("login");
-let logoutButton = document.getElementById("logout");
-
-
 
 // Click event listener for the login button.
 loginButton.addEventListener("click", function (e) {
@@ -59,14 +55,14 @@ firebase.auth().onAuthStateChanged(function (user) {
 });
 
 function showName() {
-    firebase.auth().onAuthStateChanged(function(user) {
+    firebase.auth().onAuthStateChanged(function (user) {
         db.collection("Player").doc(user.uid)
-        .onSnapshot(function (snap) {
-            console.log(snap.data());
-            document.getElementById("friend").innerHTML = snap.data().name;
+            .onSnapshot(function (snap) {
+                console.log(snap.data());
+                document.getElementById("friend").innerHTML = snap.data().name;
             });
     });
-  }
+}
 
 function changeName() {
     document.getElementById("nameForm").addEventListener("submit", function (e) {
@@ -83,15 +79,21 @@ function changeName() {
 /**
  * firebase log user score
  */
-function writeScore(x){
-    document.getElementById("deal").addEventListener("click", function(e){
+function writeScore(x) {
+    document.getElementById("deal").addEventListener("click", function (e) {
         firebase.auth().onAuthStateChanged(function (user) {
-        db.collection("Player").doc(user.uid).update({
-            score: x
-        });
+            db.collection("Player").doc(user.uid).update({
+                score: x
+            });
         });
     });
 }
+
+function myFunction() {
+  let myWindow = window.open("", "MsgWindow", "width=200,height=100");
+  myWindow.document.write("<p>This is 'MsgWindow'. I am 200px wide and 100px tall!</p>");
+}
+
 
 changeName();
 showName();
