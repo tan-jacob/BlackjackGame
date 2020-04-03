@@ -105,9 +105,9 @@ function positionPlayer(player) {
         if (player == "player") {
             hand[i].crd.style.top = "50%";
         } else {
-            hand[i].crd.style.top = "10%";
+            hand[i].crd.style.top = "25%";
         }
-        hand[i].crd.style.left = 20 + (15 * i) + "vw";
+        hand[i].crd.style.left = 30 + (15 * i) + "vw";
     }
 }
 
@@ -215,6 +215,10 @@ function toggleStart() {
     bet50.disabled = true;
 }
 
+function enableDealBtn() {
+    dealButton.disabled = false;
+}
+
 /** 
  * check player score to determine how much they can bet
  */
@@ -250,7 +254,7 @@ function playerBet10() {
     scorebox.innerHTML = "YOUR BANK: " +  score;
     poolbox.innerHTML = "POOL: " + pool;
     checkScore();
-    bet10.addEventListener("click", dealButton.disabled = false);
+    bet10.addEventListener("click", enableDealBtn());
 }
 
 /**
@@ -262,7 +266,7 @@ function playerBet25() {
     scorebox.innerHTML = "YOUR BANK: " +  score;
     poolbox.innerHTML = "POOL: " + pool;
     checkScore();
-    bet25.addEventListener("click", dealButton.disabled = false);
+    bet25.addEventListener("click", enableDealBtn());
 }
 
 /**
@@ -280,7 +284,7 @@ function playerBet50() {
     // } else {
     //     bet50.classList.remove("hidden")
     // }
-    bet50.addEventListener("click", dealButton.disabled = false);
+    bet50.addEventListener("click", enableDealBtn());
 }
 
 /**
