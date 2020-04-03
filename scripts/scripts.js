@@ -23,6 +23,8 @@ let bet50 = document.getElementById("bet50");
  *  Button Functions
  */
 dealButton.disabled = true;
+hitButton.disabled = true;
+stayButton.disabled = true;
 bet10.onclick = playerBet10;
 bet25.onclick = playerBet25;
 bet50.onclick = playerBet50;
@@ -182,36 +184,35 @@ function bankrupt() {
     window.alert("Bankrupt! You lose.");
     toggleEnd();
     score = 100;
-    scorebox.innerHTML = score;
-    poolbox.innerHTML = pool;
+    parseInt(scorebox.innerHTML) = score;
+    parseInt(poolbox.innerHTML) = pool;
 
 }
 
 /**
  * Toggle buttons after game ends.
- * hide hit & stay, show bet10 & deal
+ * Disable hit & stay, enable betting buttons & deal
  */
 function toggleEnd() {
-    hitButton.classList.add("hidden");
-    stayButton.classList.add("hidden");
-    dealButton.classList.remove("hidden");
-    bet10.classList.remove("hidden");
-    bet25.classList.remove("hidden");
-    bet50.classList.remove("hidden");
+    hitButton.disabled = true;
+    stayButton.disabled = true;
+    dealButton.disabled = false;
+    bet10.disabled = false;
+    bet25.disabled = false;
+    bet50.disabled = false;
 }
 
 /**
  * Toggle buttons at game start.
- * hide bet10 & deal, show hit & stay
+ * Enable hit & stay, disable betting buttons & deal
  */
 function toggleStart() {
-    hitButton.classList.remove("hidden");
-    stayButton.classList.remove("hidden");
-    dealButton.classList.add("hidden");
-    bet10.classList.add("hidden");
-    bet25.classList.add("hidden");
-    bet50.classList.add("hidden");
+    hitButton.disabled = false;
+    stayButton.disabled = false;
     dealButton.disabled = true;
+    bet10.disabled = true;
+    bet25.disabled = true;
+    bet50.disabled = true;
 }
 
 /** 
@@ -219,24 +220,24 @@ function toggleStart() {
  */
 function checkScore() {
     if (score < 10) {
-        bet10.classList.add("hidden")
-        bet25.classList.add("hidden")
-        bet50.classList.add("hidden")
+        bet10.disabled = true;
+        bet25.disabled = true;
+        bet50.disabled = true;
     } else {
-        bet10.classList.remove("hidden")
+        bet10.disabled = false;
     }
 
     if (score < 25) {
-        bet25.classList.add("hidden")
-        bet50.classList.add("hidden")
+        bet25.disabled = true;
+        bet50.disabled = true;
     } else {
-        bet25.classList.remove("hidden")
+        bet25.disabled = false;
     }
 
     if (score < 50) {
-        bet50.classList.add("hidden")
+        bet50.disabled = true;
     } else {
-        bet50.classList.remove("hidden")
+        bet50.disabled = false;
     }
 }
 ////////////////////// Buttons Functions //////////////////////
@@ -247,14 +248,9 @@ function checkScore() {
 function playerBet10() {
     score -= 10;
     pool += 10;
-    scorebox.innerHTML = "SCORE: " +  score;
+    scorebox.innerHTML = "YOUR BANK: " +  score;
     poolbox.innerHTML = "POOL: " + pool;
     checkScore();
-    // if (score <= 0) {
-    //     bet10.classList.add("hidden")
-    // } else {
-    //     bet10.classList.remove("hidden")
-    // }
     bet10.addEventListener("click", dealButton.disabled = false);
 }
 
@@ -264,16 +260,9 @@ function playerBet10() {
 function playerBet25() {
     score -= 25;
     pool += 25;
-    scorebox.innerHTML = "SCORE: " +  score;
+    scorebox.innerHTML = "YOUR BANK: " +  score;
     poolbox.innerHTML = "POOL: " + pool;
     checkScore();
-
-    // if (score < 25) {
-    //     bet25.classList.add("hidden")
-    //     bet50.classList.add("hidden")
-    // } else {
-    //     bet25.classList.remove("hidden")
-    // }
     bet25.addEventListener("click", dealButton.disabled = false);
 }
 
@@ -283,7 +272,7 @@ function playerBet25() {
 function playerBet50() {
     score -= 50;
     pool += 50;
-    scorebox.innerHTML = "SCORE: " +  score;
+    scorebox.innerHTML = "YOUR BANK: " +  score;
     poolbox.innerHTML = "POOL: " + pool;
     checkScore();
 
@@ -304,7 +293,7 @@ function hit() {
     let sum = player.sum();
     if (player.sum21()) {
         score += 1.5 * pool;
-        scorebox.innerHTML = "SCORE: " + score;
+        scorebox.innerHTML = "YOUR BANK: " + score;
         pool = 0;
         poolbox.innerHTML = "POOL: " + pool;
         window.alert("21! You win");
@@ -316,8 +305,8 @@ function hit() {
         poolbox.innerHTML = "POOL: " + pool;
         window.alert("Bust! You lose");
         toggleEnd();
+        checkScore();
     }
-    checkScore();
     if (score < 10){
         bankrupt();
     } 
@@ -341,7 +330,7 @@ function stay() {
     } else if (house.sum() > 21 || player.sum() > house.sum()) {
         //player wins
         score += 2 * pool;
-        scorebox.innerHTML = "SCORE: " + score;
+        scorebox.innerHTML = "YOUR BANK: " + score;
         pool = 0;
         poolbox.innerHTML = "POOL: " + pool;
         window.alert("You win");
@@ -349,7 +338,7 @@ function stay() {
     } else if (house.sum() == player.sum()) {
         //draw
         score += pool;
-        scorebox.innerHTML = "SCORE: " + score;
+        scorebox.innerHTML = "YOUR BANK: " + score;
         pool = 0;
         poolbox.innerHTML = "POOL: " + pool;
         window.alert("Draw");
@@ -404,7 +393,7 @@ function deal(){
     //Draw 21
     if (player.sum21()) {
         score += 1.5 * pool;
-        scorebox.innerHTML = "SCORE: " + score;
+        scorebox.innerHTML = "YOUR BANK: " + score;
         pool = 0;
         poolbox.innerHTML = "POOL: " + pool;
         window.alert("21! You win");
