@@ -18,6 +18,7 @@ let dealButton = document.getElementById("deal");
 let bet10 = document.getElementById("bet10");
 let bet50 = document.getElementById("bet50");
 let bet100 = document.getElementById("bet100");
+let quitButton = document.getElementById("quit");
 
 /**
  *  Button Functions
@@ -25,12 +26,14 @@ let bet100 = document.getElementById("bet100");
 dealButton.disabled = true;
 hitButton.disabled = true;
 stayButton.disabled = true;
+quitButton.disabled = true;
 bet10.onclick = playerBet10;
 bet50.onclick = playerBet50;
 bet100.onclick = playerBet100;
 hitButton.onclick = hit;
 stayButton.onclick = stay;
 dealButton.onclick = deal;
+quitButton.onclick = quit;
 
 ////////////////////// Constructors //////////////////////
 
@@ -193,12 +196,13 @@ function bankrupt() {
 
 /**
  * Toggle buttons after game ends.
- * Disable hit & stay, enable betting buttons & deal
+ * Disable hit & stay & quit, enable betting buttons & deal
  */
 function toggleEnd() {
     hitButton.disabled = true;
     stayButton.disabled = true;
-    dealButton.disabled = false;
+    quitButton.disabled = false;
+    dealButton.disabled = true;
     bet10.disabled = false;
     bet50.disabled = false;
     bet100.disabled = false;
@@ -206,11 +210,12 @@ function toggleEnd() {
 
 /**
  * Toggle buttons at game start.
- * Enable hit & stay, disable betting buttons & deal
+ * Enable hit & stay, quit, disable betting buttons & deal
  */
 function toggleStart() {
     hitButton.disabled = false;
     stayButton.disabled = false;
+    quitButton.disabled = true;
     dealButton.disabled = true;
     bet10.disabled = true;
     bet50.disabled = true;
@@ -396,7 +401,31 @@ function deal(){
         pool = 0;
         poolbox.innerHTML = "POOL: " + pool;
         window.alert("21! You win");
+        toggleEnd();
+
     }
 
 }
 
+function quit() {
+    window.alert(document.getElementById("changeName").value + " | Your bank: " + score);
+    toggleEnd();
+    score = 1000;
+    pool = 0;
+    scorebox.innerHTML = "YOUR BANK: " +  score;
+    poolbox.innerHTML = "POOL: " + pool;
+
+    let cards = document.getElementsByClassName("image");
+    console.log(cards);
+    if (cards != null) {
+        let len = cards.length;
+        for (let i = len - 1; i >= 0; i--) {
+            cards[i].parentNode.removeChild(cards[i]);
+        }
+    }
+    
+    //Clear deck and hands
+    deck = [];
+    player.hand = [];
+    house.hand = [];
+}

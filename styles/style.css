@@ -19,7 +19,7 @@ p {
   background-color: #51b86c;
 }
 
-#login, #logout {
+#login, #logout, #quit {
   background-color: grey; 
   border: none;
   color: white;
@@ -30,6 +30,10 @@ p {
   display: inline-block;
   font-size: 3vw;
   font-size: 3vh;
+}
+
+#quit:disabled {
+  background-color: #dddddd;
 }
 
 #stay {
@@ -43,7 +47,6 @@ p {
     display: inline-block;
     font-size: 3vw;
     font-size: 3vh;
-    
   }
 
   #stay:disabled {
