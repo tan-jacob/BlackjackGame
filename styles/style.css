@@ -136,16 +136,16 @@ p {
   }
 
   input[type=text] {
-    width: 14%;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
-    font-size: medium;
+    font-size: 2vw;
+    font-size: 2vh;
   }
 
   input[type=submit]{
-    width: 8%;
     padding: 12px;
-    font-size: medium;
+    font-size: 2vw;
+    font-size: 2vh;
   }
 
