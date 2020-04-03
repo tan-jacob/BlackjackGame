@@ -20,6 +20,10 @@ p {
     font-size: 15px;
   }
 
+  #stay:disabled {
+    background-color: #dddddd;
+  }
+
   #hit {
     background-color:black; 
     border: none;
@@ -31,6 +35,10 @@ p {
     font-size: 15px;
   }
 
+  #hit:disabled {
+    background-color: #dddddd;
+  }
+
   #deal {
     background-color:black; 
     border: none;
@@ -39,7 +47,11 @@ p {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 15px;
+    font-size: 15px;  
+  }
+
+  #deal:disabled {
+    background-color: #dddddd;
   }
 
   #bet10 {
@@ -51,6 +63,18 @@ p {
     text-decoration: none;
     display: inline-block;
     font-size: 15px;
+  }
+
+  #bet10:disabled {
+    background-color: rgb(113, 170, 115);
+  }
+
+  #bet25:disabled {
+    background-color: rgb(113, 170, 115);
+  }
+
+  #bet50:disabled {
+    background-color: rgb(113, 170, 115);
   }
 
   #bet25 {
@@ -74,3 +98,4 @@ p {
     display: inline-block;
     font-size: 15px;
   }
+
