@@ -7,7 +7,7 @@ let playerHand = [];
 let houseHand = [];
 let deck = [];
 let pool = 0;
-let score = 100;
+let score = 1000;
 let player = new player_obj(playerHand);
 let house = new player_obj(houseHand);
 let scorebox = document.getElementById("score");
@@ -16,8 +16,8 @@ let hitButton = document.getElementById("hit");
 let stayButton = document.getElementById("stay");
 let dealButton = document.getElementById("deal");
 let bet10 = document.getElementById("bet10");
-let bet25 = document.getElementById("bet25");
 let bet50 = document.getElementById("bet50");
+let bet100 = document.getElementById("bet100");
 
 if(window.innerHeight > window.innerWidth){
     window.alert("Please use Landscape!");
@@ -31,8 +31,8 @@ dealButton.disabled = true;
 hitButton.disabled = true;
 stayButton.disabled = true;
 bet10.onclick = playerBet10;
-bet25.onclick = playerBet25;
 bet50.onclick = playerBet50;
+bet100.onclick = playerBet100;
 hitButton.onclick = hit;
 stayButton.onclick = stay;
 dealButton.onclick = deal;
@@ -48,7 +48,7 @@ function card(value, suit, status) {
     this.status = status;
 
     if (this.status == "faceUp") {
-        this.imgsrc = "images/" + this.value + this.suit + ".png";
+        this.imgsrc = "images/" + this.value + "_" + this.suit + ".png";
     } else {
         this.imgsrc = "images/red_back.png";
     }
@@ -62,7 +62,7 @@ function card(value, suit, status) {
 
     this.setStatus = function (status) {
         if (status == "faceUp") {
-            this.crd.src = "images/" + this.value + this.suit + ".png";
+            this.crd.src = "images/" + this.value + "_" + this.suit + ".png";
         } else {
             this.crd.src = "images/red_back.png";
         }
@@ -93,7 +93,7 @@ function drawCard() {
     //No parameter for setStatus sets to facedown
     this.setStatus = function (status) {
         if (status == "faceUp") {
-            topCard.src = "images/" + topCard.value + topCard.suit + ".png";
+            topCard.src = "images/" + topCard.value + "_" + topCard.suit + ".png";
         } else {
             topCard.crd.src = "images/red_back.png";
         }
@@ -189,7 +189,7 @@ function shuffleDeck(array) {
 function bankrupt() {
     window.alert("Bankrupt! You lose.");
     toggleEnd();
-    score = 100;
+    score = 1000;
     pool = 0;
     scorebox.innerHTML = "YOUR BANK: " +  score;
     poolbox.innerHTML = "POOL: " + pool;
@@ -205,8 +205,8 @@ function toggleEnd() {
     stayButton.disabled = true;
     dealButton.disabled = false;
     bet10.disabled = false;
-    bet25.disabled = false;
     bet50.disabled = false;
+    bet100.disabled = false;
 }
 
 /**
@@ -218,8 +218,8 @@ function toggleStart() {
     stayButton.disabled = false;
     dealButton.disabled = true;
     bet10.disabled = true;
-    bet25.disabled = true;
     bet50.disabled = true;
+    bet100.disabled = true;
 }
 
 function enableDealBtn() {
@@ -232,23 +232,23 @@ function enableDealBtn() {
 function checkScore() {
     if (score < 10) {
         bet10.disabled = true;
-        bet25.disabled = true;
         bet50.disabled = true;
+        bet100.disabled = true;
     } else {
         bet10.disabled = false;
     }
 
-    if (score < 25) {
-        bet25.disabled = true;
-        bet50.disabled = true;
-    } else {
-        bet25.disabled = false;
-    }
-
     if (score < 50) {
         bet50.disabled = true;
+        bet100.disabled = true;
     } else {
         bet50.disabled = false;
+    }
+
+    if (score < 100) {
+        bet100.disabled = true;
+    } else {
+        bet100.disabled = false;
     }
 }
 ////////////////////// Buttons Functions //////////////////////
@@ -265,18 +265,6 @@ function playerBet10() {
 }
 
 /**
- * Player bets 25
- */
-function playerBet25() {
-    score -= 25;
-    pool += 25;
-    scorebox.innerHTML = "YOUR BANK: " +  score;
-    poolbox.innerHTML = "POOL: " + pool;
-    checkScore();
-    bet25.addEventListener("click", enableDealBtn());
-}
-
-/**
  * Player bets 50
  */
 function playerBet50() {
@@ -285,13 +273,19 @@ function playerBet50() {
     scorebox.innerHTML = "YOUR BANK: " +  score;
     poolbox.innerHTML = "POOL: " + pool;
     checkScore();
-
-    // if (score < 50) {
-    //     bet50.classList.add("hidden")
-    // } else {
-    //     bet50.classList.remove("hidden")
-    // }
     bet50.addEventListener("click", enableDealBtn());
+}
+
+/**
+ * Player bets 100
+ */
+function playerBet100() {
+    score -= 100;
+    pool += 100;
+    scorebox.innerHTML = "YOUR BANK: " +  score;
+    poolbox.innerHTML = "POOL: " + pool;
+    checkScore();
+    bet100.addEventListener("click", enableDealBtn());
 }
 
 /**

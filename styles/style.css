@@ -23,8 +23,8 @@ p {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 2vw;
-    font-size: 2vh;
+    font-size: 3vw;
+    font-size: 3vh;
     
   }
 
@@ -41,8 +41,8 @@ p {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 2vw;
-    font-size: 2vh;
+    font-size: 3vw;
+    font-size: 3vh;
   }
 
   #hit:disabled {
@@ -58,8 +58,8 @@ p {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 2vw;
-    font-size: 2vh;
+    font-size: 3vw;
+    font-size: 3vh;
   }
 
   #deal:disabled {
@@ -75,15 +75,15 @@ p {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 2vw;
-    font-size: 2vh;
+    font-size: 3vw;
+    font-size: 3vh;
   }
 
   #bet10:disabled {
     background-color: rgb(177, 247, 178);
   }
 
-  #bet25 {
+  #bet50 {
     background-color: rgb(1, 158, 6); 
     border: none;
     color: white;    
@@ -92,15 +92,15 @@ p {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 2vw;
-    font-size: 2vh;
+    font-size: 3vw;
+    font-size: 3vh;
   }
 
-  #bet25:disabled {
+  #bet50:disabled {
     background-color: rgb(177, 247, 178);
   }
 
-  #bet50 {
+  #bet100 {
     background-color: rgb(1, 158, 6); 
     border: none;
     color: white;
@@ -109,11 +109,11 @@ p {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 2vw;
-    font-size: 2vh;
+    font-size: 3vw;
+    font-size: 3vh;
   }
   
-  #bet50:disabled {
+  #bet100:disabled {
     background-color: rgb(177, 247, 178);
   }
 
