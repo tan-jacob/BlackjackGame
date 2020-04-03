@@ -363,8 +363,7 @@ function stay() {
  * Deal
  */
 function deal(){
-
-    writeScore(scorebox.innerHTML);//refer to firebase_api_BlackjackGame.js
+    writeScore(score);//refer to firebase_api_BlackjackGame.js
 
     let cards = document.getElementsByClassName("image");
     console.log(cards);
