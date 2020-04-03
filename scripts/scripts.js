@@ -19,6 +19,11 @@ let bet10 = document.getElementById("bet10");
 let bet25 = document.getElementById("bet25");
 let bet50 = document.getElementById("bet50");
 
+if(window.innerHeight > window.innerWidth){
+    window.alert("Please use Landscape!");
+}
+
+
 /**
  *  Button Functions
  */
@@ -53,7 +58,7 @@ function card(value, suit, status) {
     this.crd.style.width = "15vmin"
     this.crd.style.position = "absolute";
     this.crd.src = this.imgsrc;
-    this.crd.style.margin = "5px";
+    this.crd.style.margin = "2px";
 
     this.setStatus = function (status) {
         if (status == "faceUp") {
@@ -103,10 +108,11 @@ function positionPlayer(player) {
     let hand = this.hand;
     for (let i = 0; i < hand.length; i++) {
         if (player == "player") {
-            hand[i].crd.style.top = "50%";
+            hand[i].crd.style.bottom = "10%";
         } else {
-            hand[i].crd.style.top = "25%";
+            hand[i].crd.style.bottom = "45%";
         }
+        hand[i].crd.style.left = 30 + (15 * i) + "vw";
         hand[i].crd.style.left = 30 + (15 * i) + "vw";
     }
 }
@@ -184,8 +190,9 @@ function bankrupt() {
     window.alert("Bankrupt! You lose.");
     toggleEnd();
     score = 100;
-    parseInt(scorebox.innerHTML) = score;
-    parseInt(poolbox.innerHTML) = pool;
+    pool = 0;
+    scorebox.innerHTML = "YOUR BANK: " +  score;
+    poolbox.innerHTML = "POOL: " + pool;
 
 }
 
