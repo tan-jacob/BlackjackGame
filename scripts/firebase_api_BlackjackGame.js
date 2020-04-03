@@ -57,7 +57,7 @@ function showName() {
     firebase.auth().onAuthStateChanged(function (user) {
         db.collection("Player").doc(user.uid)
             .onSnapshot(function (snap) {
-                document.getElementById("friend").innerHTML = snap.data().name;
+                document.getElementById("friend").innerHTML = "Hello, " + snap.data().name;
             });
     });
 }
