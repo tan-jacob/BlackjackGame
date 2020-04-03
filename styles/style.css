@@ -135,3 +135,17 @@ p {
     background-color: rgb(177, 247, 178);
   }
 
+  input[type=text] {
+    width: 14%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    font-size: medium;
+  }
+
+  input[type=submit]{
+    width: 8%;
+    padding: 12px;
+    font-size: medium;
+  }
+
