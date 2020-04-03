@@ -93,5 +93,6 @@ function writeScore(x){
     });
 }
 
+
 changeName();
 showName();
