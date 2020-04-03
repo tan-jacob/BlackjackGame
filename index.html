@@ -19,11 +19,21 @@
 <br>
 <br>
 <br>
-<input type="text" id="changeName" value="Anonymous"></input>
-<input type="button" id="changeNameButton" value="Change Name" onclick="changeName()"></input>
+
+<h1 id="friend"></h1>
+<form id="nameForm">
+<input type="text" id="changeName" value="Anonymous" onfocus="this.value='Anonymous'">
+<input type="submit" value="Change Name">
+</form>
+
 <br>
 <br>
 <input type="button" id="bet10" value="$10">
+
+
+<input type="button" id="bet10" value="$ 10">
+<input type="button" id="bet25" value="$ 25">
+<input type="button" id="bet50" value="$ 50">
 
 <input type="button" id="stay" class="hidden" value="Stay">
 
@@ -31,9 +41,9 @@
 
 <input type="button" id="deal" value="Deal">
 
-<h4 id="score">100</h4>
+<h4 id="score">SCORE: 100</h4>
 
-<h4 id="pool">0</h4>
+<h4 id="pool">POOL: 0</h4>
 
 <script src="scripts/scripts.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.9.2/firebase-app.js"></script>
@@ -42,6 +52,8 @@
 <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
 <script src="scripts/firebase_api_BlackjackGame.js"></script>
 
+<script>
+</script>
 </body>
 </html>
 
