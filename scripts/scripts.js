@@ -252,7 +252,6 @@ function checkScore() {
     }
 }
 ////////////////////// Buttons Functions //////////////////////
-
 /**
  * Player bets 10
  */
@@ -372,7 +371,8 @@ function stay() {
  */
 function deal(){
 
-    writeScore(parseInt(scorebox.innerHTML));//code in firebase_api_BlackjackGame.js
+    writeScore(scorebox.innerHTML);//refer to firebase_api_BlackjackGame.js
+
     let cards = document.getElementsByClassName("image");
     console.log(cards);
     if (cards != null) {
@@ -411,3 +411,4 @@ function deal(){
     }
 
 }
+
