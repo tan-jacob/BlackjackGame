@@ -1,5 +1,4 @@
 const HUNDRED = 100;
-const db = firebase.firestore();
 let loginButton = document.getElementById("login");
 let logoutButton = document.getElementById("logout");
 // <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -20,10 +19,10 @@ let firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-
+const db = firebase.firestore();
 /**
-* Firebase
-*/
+ * Firebase
+ */
 
 // Click event listener for the login button.
 loginButton.addEventListener("click", function (e) {
@@ -58,7 +57,6 @@ function showName() {
     firebase.auth().onAuthStateChanged(function (user) {
         db.collection("Player").doc(user.uid)
             .onSnapshot(function (snap) {
-                console.log(snap.data());
                 document.getElementById("friend").innerHTML = snap.data().name;
             });
     });
@@ -88,12 +86,6 @@ function writeScore(x) {
         });
     });
 }
-
-function myFunction() {
-  let myWindow = window.open("", "MsgWindow", "width=200,height=100");
-  myWindow.document.write("<p>This is 'MsgWindow'. I am 200px wide and 100px tall!</p>");
-}
-
 
 changeName();
 showName();
