@@ -27,6 +27,8 @@ const db = firebase.firestore();
 let loginButton = document.getElementById("login");
 let logoutButton = document.getElementById("logout");
 
+
+
 // Click event listener for the login button.
 loginButton.addEventListener("click", function (e) {
     firebase.auth().signInAnonymously();
@@ -56,6 +58,28 @@ firebase.auth().onAuthStateChanged(function (user) {
     }
 });
 
+function showName() {
+    firebase.auth().onAuthStateChanged(function(user) {
+        db.collection("Player").doc(user.uid)
+        .onSnapshot(function (snap) {
+            console.log(snap.data());
+            document.getElementById("friend").innerHTML = snap.data().name;
+            });
+    });
+  }
+
+function changeName() {
+    document.getElementById("nameForm").addEventListener("submit", function (e) {
+        firebase.auth().onAuthStateChanged(function (user) {
+            e.preventDefault();
+            let userName = document.getElementById("changeName").value;
+            db.collection("Player").doc(user.uid).update({
+                name: userName
+            });
+        });
+    });
+}
+
 /**
  * firebase log user score
  */
@@ -68,3 +92,6 @@ function writeScore(x){
         });
     });
 }
+
+changeName();
+showName();
