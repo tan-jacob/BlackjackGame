@@ -1,4 +1,4 @@
-const HUNDRED = 100;
+const THOUSAND = 1000;
 let loginButton = document.getElementById("login");
 let logoutButton = document.getElementById("logout");
 // <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -31,7 +31,7 @@ loginButton.addEventListener("click", function (e) {
     firebase.auth().onAuthStateChanged(function (user) {
         db.collection("Player").doc(user.uid).set({
             name: "Anonymous",
-            score: HUNDRED
+            score: THOUSAND
         });
     });
 

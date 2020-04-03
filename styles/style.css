@@ -4,15 +4,33 @@
 
 p {
     font-family: Arial;
-    font-size: 3vw;
-    font-size: 3vh;
+    font-size: 10vw;
+    font-size: 10vh;
 
 }
 
 #title {
     font-family: Arial;
-    font-size: 5vw;
-    font-size: 5vh;}
+    font-size: 10vw;
+    font-size: 10vh;
+}
+
+#bg {
+  background-color: #51b86c;
+}
+
+#login, #logout {
+  background-color: grey; 
+  border: none;
+  color: white;
+  padding: 1vw;
+  padding: 1vh;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 3vw;
+  font-size: 3vh;
+}
 
 #stay {
     background-color: black; 

@@ -19,11 +19,6 @@ let bet10 = document.getElementById("bet10");
 let bet50 = document.getElementById("bet50");
 let bet100 = document.getElementById("bet100");
 
-if(window.innerHeight > window.innerWidth){
-    window.alert("Please use Landscape!");
-}
-
-
 /**
  *  Button Functions
  */
