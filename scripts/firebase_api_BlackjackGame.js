@@ -1,6 +1,7 @@
 const THOUSAND = 1000;
 let loginButton = document.getElementById("login");
 let logoutButton = document.getElementById("logout");
+let quitbtn = document.getElementById("quit");
 // <!-- The core Firebase JS SDK is always required and must be listed first -->
 // <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
 
@@ -23,6 +24,10 @@ const db = firebase.firestore();
 /**
  * Firebase
  */
+
+// Click event listener for quit button.
+quitbtn.addEventListener("click", showLeaderboard);
+
 
 // Click event listener for the login button.
 loginButton.addEventListener("click", function (e) {
@@ -78,13 +83,34 @@ function changeName() {
  * firebase log user score
  */
 function writeScore(x) {
-    document.getElementById("deal").addEventListener("click", function (e) {
+    document.getElementById("quit").addEventListener("click", function (e) {
         firebase.auth().onAuthStateChanged(function (user) {
             db.collection("Player").doc(user.uid).update({
                 score: x
             });
         });
     });
+}
+
+/**
+ * Show leaderboard
+ */
+function showLeaderboard() {
+    let docRef = db.collection("Player");
+    let myWindow = window.open("Leaderboard", "Leaderboard", "width=250,height=300");
+    db.collection("Player")
+        .orderBy("score", "desc").limit(10)
+        .get()
+        .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+                let score = doc.data().name + "-----" + doc.data().score;
+                let p = document.createElement("p");
+                let node = document.createTextNode(score);
+                p.appendChild(node);
+                myWindow.document.write(p.innerHTML);
+                myWindow.document.write("<br>");
+            });
+        });
 }
 
 changeName();
