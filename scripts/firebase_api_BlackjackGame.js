@@ -97,7 +97,9 @@ function writeScore(x) {
  */
 function showLeaderboard() {
     let docRef = db.collection("Player");
-    let myWindow = window.open("Leaderboard", "Leaderboard", "width=250,height=300");
+    let myWindow = window.open("", "Leaderboard", "width=250,height=300");
+    myWindow.document.write("Leaderboard");
+    myWindow.document.write("<br>");
     db.collection("Player")
         .orderBy("score", "desc").limit(10)
         .get()
